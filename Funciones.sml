@@ -80,3 +80,60 @@ fun readlist (infile : string) = let
 in
   loop ins before TextIO.closeIn ins
 end 
+
+(* Toma las lineas de texto y las guarda en una lista de Strings*)
+
+fun readlist (infile : string) = let
+  val ins = TextIO.openIn infile
+  fun loop ins =
+   case TextIO.inputLine ins of
+      SOME line => line :: loop ins
+    | NONE      => []
+in
+  loop ins before TextIO.closeIn ins
+end
+
+﻿
+(*Funcion que valida año bisiesto*)
+fun es_bisiesto(pr : int)=
+	if((pr div 400) == 0)
+		then true
+	else if((pr mod 4)== 0) andalso ((pr mod 100)==0)
+		then true
+	else false
+
+(*Funcion que valida el mes y dia de un año biciesto*)
+fun dia_mes_biciesto(d: int,m: int))=
+	if(m != 02)
+		then true
+	else if(d <= 29) andalso (d>0)
+		then true
+	else false
+
+(*Funcion que valida dias con lo meses*)
+fun dia_mes_valido(d: int,m: int))=
+	if(m==02) andalso (d<=28) andalso (d>0)
+		then true
+	elseif(m==04) andalso (d<=30) andalso (d>0)
+		then true
+	elseif(m==06) andalso (d<=30) andalso (d>0)
+		then true
+	elseif(m==09) andalso (d<=30) andalso (d>0)
+		then true
+	elseif(m==11) andalso (d<=30) andalso (d>0)
+		then true
+	elseif(d<=31) andalso (d>0)
+		then true
+	else false
+
+
+(*Funcion valida fecha*)
+fun Validar_fecha(date: (int * int * int))=
+	val dia= (#1 date);
+	val mes= (#2 date);
+	val año= (#3 date);
+	if(es_biciesto(año)== true) andalso(dia_mes_biciesto(dia,mes)==true)
+		then true
+	if(dia_mes_valido(dia,mes)==true)
+		then true
+	else false
